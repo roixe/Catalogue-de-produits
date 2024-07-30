@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Catalogue_de_produits.Data;
 namespace Catalogue_de_produits
 {
     public class Program
@@ -5,6 +8,8 @@ namespace Catalogue_de_produits
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<Catalogue_de_produitsContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Catalogue_de_produitsContext") ?? throw new InvalidOperationException("Connection string 'Catalogue_de_produitsContext' not found.")));
 
             // Add services to the container.
             builder.Services.AddRazorPages();
