@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Catalogue_de_produits.Data;
+using Catalogue_de_produits.Models;
+using RazorPagesMovie.Models;
+
 namespace Catalogue_de_produits
 {
     public class Program
@@ -16,6 +19,12 @@ namespace Catalogue_de_produits
 
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                SeedData.Initialize(services);
+            }
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
