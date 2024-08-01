@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Catalogue_de_produits.Data;
 using Catalogue_de_produits.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Catalogue_de_produits.Pages.Produits
 {
@@ -21,9 +22,25 @@ namespace Catalogue_de_produits.Pages.Produits
 
         public IList<Produit> Produit { get;set; } = default!;
 
+        [BindProperty(SupportsGet = true)]
+        public string? SearchString { get; set; }
+
+        public SelectList? Name { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string? PoduitName { get; set; }
+
         public async Task OnGetAsync()
         {
-            Produit = await _context.Produit.ToListAsync();
+            var produits = from p in _context.Produit
+                         select p;
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                produits = produits.Where(s => s.Name.Contains(SearchString));
+            }
+
+            Produit = await produits.ToListAsync();
         }
     }
 }
