@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Catalogue_de_produits.Data;
 using Catalogue_de_produits.Models;
 using RazorPagesMovie.Models;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace Catalogue_de_produits
 {
@@ -14,6 +16,9 @@ namespace Catalogue_de_produits
             builder.Services.AddDbContext<Catalogue_de_produitsContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Catalogue_de_produitsContext") ?? throw new InvalidOperationException("Connection string 'Catalogue_de_produitsContext' not found.")));
 
+           
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<Catalogue_de_produitsContext>();
             // Add services to the container.
             builder.Services.AddRazorPages();
 
@@ -38,6 +43,7 @@ namespace Catalogue_de_produits
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapRazorPages();

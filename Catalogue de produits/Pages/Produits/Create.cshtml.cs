@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Catalogue_de_produits.Data;
 using Catalogue_de_produits.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Catalogue_de_produits.Pages.Produits
 {
+    
     public class CreateModel : PageModel
     {
+        
         private readonly Catalogue_de_produits.Data.Catalogue_de_produitsContext _context;
 
         public CreateModel(Catalogue_de_produits.Data.Catalogue_de_produitsContext context)
