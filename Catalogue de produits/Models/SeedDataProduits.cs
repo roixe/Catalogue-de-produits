@@ -4,7 +4,7 @@ using Catalogue_de_produits.Data;
 
 namespace RazorPagesMovie.Models;
 
-public static class SeedData
+public static class SeedDataProduits
 {
     public static void Initialize(IServiceProvider serviceProvider)
     {

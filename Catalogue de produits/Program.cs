@@ -5,20 +5,22 @@ using Catalogue_de_produits.Models;
 using RazorPagesMovie.Models;
 using Microsoft.AspNetCore.Identity;
 
-
 namespace Catalogue_de_produits
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<Catalogue_de_produitsContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Catalogue_de_produitsContext") ?? throw new InvalidOperationException("Connection string 'Catalogue_de_produitsContext' not found.")));
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-               .AddEntityFrameworkStores <Catalogue_de_produitsContext> ();
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<Catalogue_de_produitsContext>()
+                .AddDefaultTokenProviders();
             builder.Services.AddRazorPages();
+
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
@@ -58,8 +60,12 @@ namespace Catalogue_de_produits
             {
                 var services = scope.ServiceProvider;
 
-                SeedData.Initialize(services);
+                    await SeedDataRoles.Initialize(services);
+                    SeedDataProduits.Initialize(services);
+                
+              
             }
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
