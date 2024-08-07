@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Catalogue_de_produits.Pages.Produits
 {
-    
+    [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
         

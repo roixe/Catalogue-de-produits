@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Catalogue_de_produits.Data;
 using Catalogue_de_produits.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Catalogue_de_produits.Pages.Produits
 {
+    [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
         private readonly Catalogue_de_produits.Data.Catalogue_de_produitsContext _context;

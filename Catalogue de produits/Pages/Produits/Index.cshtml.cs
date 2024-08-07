@@ -8,15 +8,23 @@ using Microsoft.EntityFrameworkCore;
 using Catalogue_de_produits.Data;
 using Catalogue_de_produits.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
+
+
 
 namespace Catalogue_de_produits.Pages.Produits
 {
     public class IndexModel : PageModel
     {
         private readonly Catalogue_de_produits.Data.Catalogue_de_produitsContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public IndexModel(Catalogue_de_produits.Data.Catalogue_de_produitsContext context)
+        public bool IsAdmin { get; set; }
+        public IndexModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, Catalogue_de_produits.Data.Catalogue_de_produitsContext context)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _context = context;
         }
 
@@ -32,6 +40,8 @@ namespace Catalogue_de_produits.Pages.Produits
 
         public async Task OnGetAsync()
         {
+            var user = await _userManager.GetUserAsync(User);
+            IsAdmin = user != null && await _userManager.IsInRoleAsync(user, "Admin");
             var produits = from p in _context.Produit
                          select p;
 

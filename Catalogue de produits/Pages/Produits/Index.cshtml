@@ -1,5 +1,10 @@
 ﻿@page
 @model Catalogue_de_produits.Pages.Produits.IndexModel
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization;
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -7,9 +12,12 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+@if (Model.IsAdmin)
+{
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+}
 
 <form>
     <p>
@@ -63,12 +71,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Stock)
             </td>
+            @if (Model.IsAdmin)
+                {
+                    <td>
 
-            <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
+            }
         </tr>
 }
     </tbody>

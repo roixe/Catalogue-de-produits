@@ -8,12 +8,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Catalogue_de_produits.Data;
 using Catalogue_de_produits.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Catalogue_de_produits.Pages.Produits
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly Catalogue_de_produits.Data.Catalogue_de_produitsContext _context;
+
+
 
         public EditModel(Catalogue_de_produits.Data.Catalogue_de_produitsContext context)
         {
@@ -25,6 +30,7 @@ namespace Catalogue_de_produits.Pages.Produits
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -34,7 +40,7 @@ namespace Catalogue_de_produits.Pages.Produits
             if (produit == null)
             {
                 return NotFound();
-            }
+            }   
             Produit = produit;
             return Page();
         }

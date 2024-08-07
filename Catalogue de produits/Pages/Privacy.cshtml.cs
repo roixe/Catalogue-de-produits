@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Catalogue_de_produits.Pages
 {
-    [Authorize(Roles = "ADMIN")]
+    [Authorize(Roles = "Admin")]
     public class PrivacyModel : PageModel
     {
         private readonly ILogger<PrivacyModel> _logger;
