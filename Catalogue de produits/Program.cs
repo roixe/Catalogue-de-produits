@@ -22,6 +22,7 @@ namespace Catalogue_de_produits
             builder.Services.AddRazorPages();
 
 
+
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -41,6 +42,7 @@ namespace Catalogue_de_produits
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
+                
             });
 
             builder.Services.ConfigureApplicationCookie(options =>

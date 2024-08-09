@@ -10,7 +10,7 @@ namespace Catalogue_de_produits.Models
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-            string[] roleNames = { "Admin", "User"};
+            string[] roleNames = { "Admin", "User" };
             IdentityResult roleResult;
 
             foreach (var roleName in roleNames)
@@ -36,6 +36,7 @@ namespace Catalogue_de_produits.Models
                 {
                     await userManager.AddToRoleAsync(adminUser, "Admin");
                 }
+
             }
         }
     }
