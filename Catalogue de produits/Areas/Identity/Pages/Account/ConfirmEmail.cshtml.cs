@@ -44,8 +44,9 @@ namespace Catalogue_de_produits.Areas.Identity.Pages.Account
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
-            return Page();
+            StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";           
+            return Redirect("/Index");
+            
         }
     }
 }
