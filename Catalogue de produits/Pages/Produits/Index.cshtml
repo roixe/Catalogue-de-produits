@@ -10,7 +10,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>All our Products</h1>
 
 @if (Model.IsAdmin)
 {
@@ -21,7 +21,7 @@
 
 <form>
     <p>
-        Title: <input type="text" asp-for="SearchString" />
+        search: <input type="text" asp-for="SearchString" />
         <input type="submit" value="Filter" />
     </p>
 </form>
@@ -78,9 +78,15 @@
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-            }
-        </tr>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                    </td>
+                }
+            </tr>
 }
     </tbody>
 </table>

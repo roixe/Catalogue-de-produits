@@ -122,6 +122,7 @@ namespace Catalogue_de_produits.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    //get UserRole attribut for a new User to User
                     await _userManager.AddToRoleAsync(user, "User");
 
                     var userId = await _userManager.GetUserIdAsync(user);
