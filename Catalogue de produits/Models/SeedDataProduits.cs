@@ -1,6 +1,7 @@
 ﻿using Catalogue_de_produits.Models;
 using Microsoft.EntityFrameworkCore;
 using Catalogue_de_produits.Data;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace RazorPagesMovie.Models;
 
@@ -23,8 +24,13 @@ public static class SeedDataProduits
                 return;   // DB has been seeded
             }
 
+        
+
             context.Produit.AddRange(
-               
+
+
+     
+
     new Produit
     {
         Name = "Apple iPhone 13",
