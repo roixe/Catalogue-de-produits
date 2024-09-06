@@ -29,3 +29,83 @@ body {
 table {
 }
 
+@keyframes infiniteScroll {
+    0% {
+        transform: translateX(0%)
+    }
+
+    100% {
+        transform: translateX(calc(-400%));
+    }
+
+    
+}
+
+.products::before {
+    content: attr(data-content);
+    display: inline-block;
+}
+
+.products {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    
+}
+
+.product-card {
+    flex: 0 0 auto;
+    text-align: center;
+    width: 300px;
+    margin: 0 30px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    animation-name: infiniteScroll;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    position: relative;
+}
+
+    .product-card img {
+        max-width: 150px;
+        max-height: 150px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    .product-card h3 {
+        font-size: 1.2rem;
+        margin: 10px 0;     
+    }
+
+    .product-card p {
+        color: #666;
+        font-size: 0.9rem;
+       
+        
+    }
+
+    .product-card .price {
+        color: #27ae60;
+        font-weight: bold;
+        font-size: 1rem;
+    }
+    .scroll-buttons {
+    text-align: center;
+    margin-top: 10px;
+    }
+
+    h2 {
+        font-family : 'Century Gothic';
+                  
+    }
+
