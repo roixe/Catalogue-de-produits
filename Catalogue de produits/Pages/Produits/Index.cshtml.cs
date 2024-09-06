@@ -21,6 +21,8 @@ namespace Catalogue_de_produits.Pages.Produits
         private readonly SignInManager<IdentityUser> _signInManager;
 
         public bool IsAdmin { get; set; }
+        public bool IsUser { get; set; }
+
         public IndexModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, Catalogue_de_produits.Data.Catalogue_de_produitsContext context)
         {
             _userManager = userManager;
@@ -42,6 +44,7 @@ namespace Catalogue_de_produits.Pages.Produits
         {
             var user = await _userManager.GetUserAsync(User);
             IsAdmin = user != null && await _userManager.IsInRoleAsync(user, "Admin");
+            IsUser = user != null && await _userManager.IsInRoleAsync(user, "User");
             var produits = from p in _context.Produit
                          select p;
 

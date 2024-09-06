@@ -80,7 +80,7 @@
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 }
-                else
+                else if (Model.IsUser || Model.IsAdmin )
                 {
                     <td>
                     <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
