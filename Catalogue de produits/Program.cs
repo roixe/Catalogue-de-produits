@@ -4,6 +4,7 @@ using Catalogue_de_produits.Data;
 using Catalogue_de_produits.Models;
 using RazorPagesMovie.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Catalogue_de_produits
 {
@@ -19,8 +20,11 @@ namespace Catalogue_de_produits
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<Catalogue_de_produitsContext>()
                 .AddDefaultTokenProviders();
-            builder.Services.AddRazorPages();
-
+            builder.Services.AddRazorPages()
+                .AddMvcOptions(options =>
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                });
 
 
             builder.Services.Configure<IdentityOptions>(options =>
@@ -42,7 +46,6 @@ namespace Catalogue_de_produits
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
-                
             });
 
             builder.Services.ConfigureApplicationCookie(options =>
