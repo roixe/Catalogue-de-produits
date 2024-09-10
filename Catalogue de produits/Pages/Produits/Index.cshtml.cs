@@ -9,11 +9,13 @@ using Catalogue_de_produits.Data;
 using Catalogue_de_produits.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 
 
 namespace Catalogue_de_produits.Pages.Produits
 {
+    [Authorize(Roles = "Admin,User")]
     public class IndexModel : PageModel
     {
         private readonly Catalogue_de_produits.Data.Catalogue_de_produitsContext _context;

@@ -16,7 +16,9 @@
         {
             @if (item.Name == "Apple AirPods Pro" || item.Name == "Samsung QLED TV" || item.Name == "Bose QuietComfort 35 II" || item.Name == "Microsoft Surface Pro 7" || item.Name == "Canon EOS R5" || item.Name == "JBL Flip 5")
             {
+                <a asp-page="Produits/Details" asp-route-id="@item.Id">
                 <div class="product-card">
+                                      
                     @if (!string.IsNullOrEmpty(item.ImageUrl))
                     {
                         <img src="@item.ImageUrl" alt="Image for @item.Name" />
@@ -28,9 +30,11 @@
                     <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
                     <p>@Html.DisplayFor(modelItem => item.Description)</p>
                     <span class="price">@Html.DisplayFor(modelItem => item.Price)</span>
+                    
                 </div>
+                </a>
             }
         }
     </section>
-    
+</div>
 
