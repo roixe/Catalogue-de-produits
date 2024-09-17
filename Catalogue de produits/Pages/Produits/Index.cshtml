@@ -1,0 +1,161 @@
+﻿@page
+@model Catalogue_de_produits.Pages.Produits.IndexModel
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization;
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+
+form p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+input[type="text"] {
+    padding: 5px;
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+input[type="submit"] {
+    padding: 6px 12px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #219150;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+.table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.table img {
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+        padding: 10px;
+        text-align: center;
+}
+
+img {
+        max-width: 80px;
+        max-height: 80px;
+    }
+}
+</style>
+<h1>All our Products</h1>
+
+@if (Model.IsAdmin)
+{
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+}
+
+<form>
+    <p>
+        search: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produit[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produit[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produit[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produit[0].Stock)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Produit) {
+        <tr>
+            <td>
+               @if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+                 <img src="@item.ImageUrl" alt="Image for @item.Name" style="max-width: 100px; max-height: 100px;" />
+                }
+               else
+               {
+                  <span>No Image</span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            @if (Model.IsAdmin)
+                {
+                    <td>
+
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                }
+                else if (Model.IsUser || Model.IsAdmin )
+                {
+                    <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                    </td>
+                }
+            </tr>
+}
+    </tbody>
+</table>
